@@ -6,11 +6,18 @@ import cv2
 from common import BLOCK, C, RESULTS, load_gray
 
 
-def threshold_opencv(gray, block_size=BLOCK, c=C, method="mean"):
+def threshold_opencv(gray, block_size=BLOCK, c=C):
     if block_size < 3 or block_size % 2 == 0:
         raise ValueError("block_size должен быть нечётным и >= 3")
-    m = cv2.ADAPTIVE_THRESH_MEAN_C if method == "mean" else cv2.ADAPTIVE_THRESH_GAUSSIAN_C
-    return cv2.adaptiveThreshold(gray, 255, m, cv2.THRESH_BINARY, block_size, c)
+
+    return cv2.adaptiveThreshold(
+        gray,
+        255,
+        cv2.ADAPTIVE_THRESH_MEAN_C,
+        cv2.THRESH_BINARY,
+        block_size,
+        c
+    )
 
 
 def main():
